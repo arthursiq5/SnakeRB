@@ -7,6 +7,14 @@ class Game < Gosu::Window
     def initialize
         super WIDTH, HEIGHT
         self.caption = "SnakeRB"
+        @font = Gosu::Font.new(20)
+    end
+
+    def update
+    end
+
+    def draw
+        @font.draw_text 'olá, mundo', 10, 10, 10
     end
 
 end
