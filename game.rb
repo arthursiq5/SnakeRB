@@ -43,12 +43,14 @@ class Game < Gosu::Window
     def initialize
         super WIDTH, HEIGHT
         self.caption = "SnakeRB"
-        @font = Gosu::Font.new(20)
         @snake = Snake.new
+       @last_tick = Time.now 
     end
 
     def update
+        return if Time.now - @last_tick < 0.15
         @snake.move
+        @last_tick = Time.now
     end
 
     def draw
