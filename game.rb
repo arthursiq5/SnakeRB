@@ -2,7 +2,7 @@ require 'gosu'
 
 class Snake
     def initialize
-        @cells = [{ x: 0, y: 0 }, { x: 1, y: 0 }]
+        @cells = [{ x: 0, y: 0 }]
     end
 
     def draw window
@@ -21,6 +21,18 @@ class Snake
 
     end
 
+    def move
+        direction = 1
+        tail = @cells.first
+
+        to_move = @cells.pop
+        to_move[:x] = tail[:x] + direction
+        to_move[:y] = 0
+
+        @cells.unshift(to_move)
+
+    end
+
 end
 
 class Game < Gosu::Window
@@ -36,6 +48,7 @@ class Game < Gosu::Window
     end
 
     def update
+        @snake.move
     end
 
     def draw
