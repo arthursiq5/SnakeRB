@@ -69,6 +69,10 @@ class Snake
 
     end
 
+    def grow
+        @cells.push @cells.last.dup
+    end
+
 end
 
 class Apple
@@ -121,6 +125,7 @@ class Game < Gosu::Window
 
         if @snake.ate? @apple
             @apple.generate
+            @snake.grow
         end
 
         @last_tick = Time.now
