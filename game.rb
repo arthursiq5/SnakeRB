@@ -1,5 +1,36 @@
 require 'gosu'
 
+class Keyboard
+    attr_accessor :x, :y
+
+    def initialize
+        @x = 1
+        @y = 0
+    end
+
+    def press id
+        case id
+        when Gosu::KB_LEFT
+            return if @x != 0
+            @x = -1
+            @y = 0
+        when Gosu::KB_RIGHT
+            return if @x != 0
+            @x = 1
+            @y = 0
+        when Gosu::KB_UP
+            return if @y != 0
+            @x = 0
+            @y = -1
+        when Gosu::KB_DOWN
+            return if @y != 0
+            @x = 0
+            @y = 1
+        end
+    end
+
+end
+
 class Snake
     def initialize
         @cells = [{ x: 0, y: 0 }]
@@ -21,13 +52,12 @@ class Snake
 
     end
 
-    def move
-        direction = 1
+    def move keyboard
         tail = @cells.first
 
         to_move = @cells.pop
-        to_move[:x] = tail[:x] + direction
-        to_move[:y] = 0
+        to_move[:x] = tail[:x] + keyboard.x
+        to_move[:y] = tail[:y] + keyboard.y
 
         @cells.unshift(to_move)
 
@@ -44,13 +74,18 @@ class Game < Gosu::Window
         super WIDTH, HEIGHT
         self.caption = "SnakeRB"
         @snake = Snake.new
-       @last_tick = Time.now 
+        @keyboard = Keyboard.new
+        @last_tick = Time.now
     end
 
     def update
         return if Time.now - @last_tick < 0.15
-        @snake.move
+        @snake.move @keyboard
         @last_tick = Time.now
+    end
+
+    def button_down id
+        @keyboard.press id
     end
 
     def draw
