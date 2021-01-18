@@ -36,6 +36,12 @@ class Snake
         @cells = [{ x: 0, y: 0 }]
     end
 
+    def ate? apple
+        @cells.any? do |cell|
+            cell[:x] == apple.x && cell[:y] == apple.y
+        end
+    end
+
     def draw window
 
         cw = Game::CELL_WIDTH
@@ -78,8 +84,9 @@ class Apple
         width = Game::WIDTH
         height = Game::HEIGHT
 
-        @x = (rand * width - cw) / cw
-        @y = 5
+        @x = ((rand * width - cw) / cw).round
+        @y = ((rand * height - cw) / cw).round
+
     end
 
     def draw window
@@ -111,6 +118,11 @@ class Game < Gosu::Window
     def update
         return if Time.now - @last_tick < 0.15
         @snake.move @keyboard
+
+        if @snake.ate? @apple
+            @apple.generate
+        end
+
         @last_tick = Time.now
     end
 
