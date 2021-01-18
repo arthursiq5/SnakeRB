@@ -74,7 +74,11 @@ class Apple
     end
 
     def generate
-        @x = 5
+        cw = Game::CELL_WIDTH
+        width = Game::WIDTH
+        height = Game::HEIGHT
+
+        @x = (rand * width - cw) / cw
         @y = 5
     end
 
