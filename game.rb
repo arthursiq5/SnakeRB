@@ -98,7 +98,7 @@ class Apple
         width = Game::WIDTH
         height = Game::HEIGHT
 
-        window.draw_rect(@x * cw, @y * cw, cw, cw, Gosu::Color::YELLOW)
+        window.draw_rect(@x * cw, @y * cw, cw, cw, Gosu::Color::BLACK)
 
         window.draw_rect((@x * cw) + 1, (@y * cw) + 1, cw - 2, cw - 2, Gosu::Color::RED)
 
