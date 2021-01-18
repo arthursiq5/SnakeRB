@@ -65,6 +65,31 @@ class Snake
 
 end
 
+class Apple
+
+    attr_accessor :x, :y    
+
+    def initialize
+        generate
+    end
+
+    def generate
+        @x = 5
+        @y = 5
+    end
+
+    def draw window
+        cw = Game::CELL_WIDTH
+        width = Game::WIDTH
+        height = Game::HEIGHT
+
+        window.draw_rect(@x * cw, @y * cw, cw, cw, Gosu::Color::YELLOW)
+
+        window.draw_rect((@x * cw) + 1, (@y * cw) + 1, cw - 2, cw - 2, Gosu::Color::RED)
+
+    end
+end
+
 class Game < Gosu::Window
     CELL_WIDTH = 20
     WIDTH = 800
@@ -76,6 +101,7 @@ class Game < Gosu::Window
         @snake = Snake.new
         @keyboard = Keyboard.new
         @last_tick = Time.now
+        @apple = Apple.new
     end
 
     def update
@@ -90,6 +116,7 @@ class Game < Gosu::Window
 
     def draw
         @snake.draw self
+        @apple.draw self
     end
 
 end
