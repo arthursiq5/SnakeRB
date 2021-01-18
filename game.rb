@@ -117,6 +117,7 @@ class Game < Gosu::Window
         @keyboard = Keyboard.new
         @last_tick = Time.now
         @apple = Apple.new
+        4.times { @snake.grow}
     end
 
     def update
