@@ -34,6 +34,8 @@ end
 class Snake
     def initialize
         @cells = [{ x: 0, y: 0 }]
+        @x_max = Game::WIDTH / Game::CELL_WIDTH
+        @y_max = Game::HEIGHT / Game::CELL_WIDTH
     end
 
     def ate? apple
